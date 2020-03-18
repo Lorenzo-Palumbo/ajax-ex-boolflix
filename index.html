@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Boolflix</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <input class="input-film"placeholder="Cerca film...">
+        <button class="search">Cerca</button>
+        <div class="films-trovati"></div>
+        <script id="films-template" type="text/x-handlebars-template">
+          <div class="film-trovato">
+            <span>Titolo:{{titolo}}</span>
+            <span>Titolo Originale:{{originale}}</span>
+            <span>Lingua:{{lingua}}</span>
+            <span>Voto:{{voto}}</span>
+          </div>
+        </script>
+
+        <script src="js/main.js" charset="utf-8"></script>
+    </body>
+</html>
