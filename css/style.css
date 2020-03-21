@@ -7,3 +7,7 @@
 .film-trovato span{
     display: block;
 }
+
+.star{
+    display: none;
+}
