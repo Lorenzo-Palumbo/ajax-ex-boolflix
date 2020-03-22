@@ -13,8 +13,20 @@ $(document).ready(function(){
 
     function cerca(){
         var filmInput = $('.input-film').val();
+        if (filmInput.length !== 0) {
+            apiRicercaFilm(filmInput);
+            apiRicercaSerie(filmInput);
+        }else {
+            alert('Inserire testo');
+        }
+        $('.films-trovati').empty();
+
+    };
+//Funzione per ricercare tramite nome film in input il corrispettivo api
+    function apiRicercaFilm(filmInput){
+        var apiBaseUrl = 'https://api.themoviedb.org/3';
         $.ajax({
-            url: 'https://api.themoviedb.org/3/search/movie',
+            url: apiBaseUrl + '/search/movie',
             data:{
                 api_key: '028c6c0b5dafcb0ed69b45392117aab6',
                 query: filmInput,
@@ -23,45 +35,86 @@ $(document).ready(function(){
             method:'GET',
             success: function(data){
                 var films = data.results;
-                for (var i = 0; i < films.length; i++) {
-                    var film = films[i];
-
-                    var context = {
-                        titolo: film.title,
-                        originale: film.original_title,
-                        lingua: flags(film.original_language),
-                        language: film.original_language,
-                        stelle: stars(film.vote_average)
-                     };
-
-                     var html = template(context);
-                     $('.films-trovati').append(html);
-                }
+                console.log(films);
+                stampaFilm(films);
             },
             error: function(){
                 alert('error')
             }
         });
     };
-    //Funzione per mettere bandiera in lingua
-    function flags(language){
-        // console.log(language);
-        var lingue = ['ad', 'ae', 'af', 'ag', 'ai', 'al', 'an', 'am', 'ao', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'ax', 'az', 'eu', 'bn', 'dz', 'bh', 'bi', 'br', 'bg', 'my', 'be', 'km', 'ca', 'zh', 'co', 'hr', 'cs', 'da', 'nl', 'eo', 'et', 'fo', 'fa', 'fj', 'fi', 'fr', 'fy', 'gd', 'gv',
-         'gl', 'ka', 'de', 'el', 'kl', 'gn', 'gu', 'ht', 'ha', 'he', 'iw', 'hi', 'hu', 'is', 'io', 'id', 'in', 'ia', 'ie', 'iu', 'ik', 'ga', 'it', 'ja', 'jv', 'kn', 'ks', 'kk', 'rw', 'ky', 'rn', 'ko', 'ku', 'lo', 'la', 'lv', 'li', 'ln', 'lt', 'mk',
-          'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mo', 'mn', 'na', 'ne', 'no', 'oc', 'or', 'om', 'ps', 'pl', 'pt', 'pa', 'qu', 'rm', 'ro', 'ru', 'sm', 'sg', 'sa', 'sr', 'st', 'tn', 'sn', 'ii', 'sd', 'si', 'ss', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv',
-           'tl', 'tg', 'ta', 'tt', 'te', 'th', 'bo', 'ti', 'to', 'ts', 'tr', 'tk', 'tw', 'ug', 'uk', 'ur', 'uz', 'vi', 'vo', 'wa', 'cy', 'wo', 'xh', 'yi', 'ji', 'yo', 'zu'];
-        // for (var i = 0; i < lingue.length; i++) {
-            if (lingue.includes(language)) {
 
-            }else {
-                htmlLingua = language;
-            
+    function apiRicercaSerie(filmInput){
+        var apiBaseUrl = 'https://api.themoviedb.org/3';
+        $.ajax({
+            url: apiBaseUrl + '/search/tv',
+            data:{
+                api_key: '028c6c0b5dafcb0ed69b45392117aab6',
+                query: filmInput,
+                language: 'it-IT'
+            },
+            method:'GET',
+            success: function(data){
+                var films = data.results;
+                console.log(films);
+                stampaFilm(films);
+                stampaSerie(films);
+            },
+            error: function(){
+                alert('error')
             }
-    //     };
-        return htmlLingua
+        });
     };
 
-    //Creazione funzione per stelle in maniera dinamica
+//Funzione per prendere dati da api e stamparli
+    function stampaFilm(films){
+        for (var i = 0; i < films.length; i++) {
+            var film = films[i];
+
+            var context = {
+                titolo: film.title,
+                originale: film.original_title,
+                lingua: flags(film.original_language),
+                language: film.original_language,
+                stelle: stars(film.vote_average)
+             };
+             var html = template(context);
+             $('.films-trovati').append(html);
+        }
+    };
+
+    function stampaSerie(films){
+        for (var i = 0; i < films.length; i++) {
+            var film = films[i];
+
+            var context = {
+                titolo: film.name,
+                originale: film.original_name,
+                lingua: flags(film.original_language),
+                language: film.original_language,
+                stelle: stars(film.vote_average)
+             };
+             var html = template(context);
+             $('.films-trovati').append(html);
+        }
+    };
+
+//Funzione per mettere bandiera in lingua
+    function flags(language){
+        if (language == 'en') {
+            var language = 'us' ;
+        }else if (language == 'ja') {
+            var language = 'jp' ;
+        }else if (language == 'cs') {
+            var language = 'cz' ;
+        }else {
+
+        }
+        return language
+    };
+
+
+//Funzione per creare stelle in maniera dinamica
     function stars(voto){
         var cinque = voto/2;
         var stelle = Math.ceil(cinque);
@@ -76,4 +129,5 @@ $(document).ready(function(){
         }
         return htmlStelle
     };
+
 });
