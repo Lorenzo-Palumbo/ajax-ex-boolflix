@@ -14,8 +14,8 @@ $(document).ready(function(){
     function cerca(){
         var filmInput = $('.input-film').val();
         if (filmInput.length !== 0) {
-            apiRicercaFilm(filmInput);
-            apiRicercaSerie(filmInput);
+            apiRicercaFilm(filmInput, '/search/movie');
+            apiRicercaFilm(filmInput, '/search/tv');
         }else {
             alert('Inserire testo');
         }
@@ -23,10 +23,10 @@ $(document).ready(function(){
 
     };
 //Funzione per ricercare tramite nome film in input il corrispettivo api
-    function apiRicercaFilm(filmInput){
+    function apiRicercaFilm(filmInput, serieOFilm){
         var apiBaseUrl = 'https://api.themoviedb.org/3';
         $.ajax({
-            url: apiBaseUrl + '/search/movie',
+            url: apiBaseUrl + serieOFilm,
             data:{
                 api_key: '028c6c0b5dafcb0ed69b45392117aab6',
                 query: filmInput,
@@ -36,7 +36,12 @@ $(document).ready(function(){
             success: function(data){
                 var films = data.results;
                 console.log(films);
-                stampaFilm(films);
+                if (serieOFilm == '/search/movie') {
+                    stampaFilm(films);
+                }else {
+                    stampaSerie(films)
+                }
+
             },
             error: function(){
                 alert('error')
@@ -44,27 +49,27 @@ $(document).ready(function(){
         });
     };
 
-    function apiRicercaSerie(filmInput){
-        var apiBaseUrl = 'https://api.themoviedb.org/3';
-        $.ajax({
-            url: apiBaseUrl + '/search/tv',
-            data:{
-                api_key: '028c6c0b5dafcb0ed69b45392117aab6',
-                query: filmInput,
-                language: 'it-IT'
-            },
-            method:'GET',
-            success: function(data){
-                var films = data.results;
-                console.log(films);
-                stampaFilm(films);
-                stampaSerie(films);
-            },
-            error: function(){
-                alert('error')
-            }
-        });
-    };
+    // function apiRicercaSerie(filmInput, serieOFilm){
+    //     var apiBaseUrl = 'https://api.themoviedb.org/3';
+    //     $.ajax({
+    //         url: apiBaseUrl + serieOFilm,
+    //         data:{
+    //             api_key: '028c6c0b5dafcb0ed69b45392117aab6',
+    //             query: filmInput,
+    //             language: 'it-IT'
+    //         },
+    //         method:'GET',
+    //         success: function(data){
+    //             var films = data.results;
+    //             console.log(films);
+    //             stampaFilm(films);
+    //             stampaSerie(films);
+    //         },
+    //         error: function(){
+    //             alert('error')
+    //         }
+    //     });
+    // };
 
 //Funzione per prendere dati da api e stamparli
     function stampaFilm(films){
