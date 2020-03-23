@@ -76,10 +76,11 @@ $(document).ready(function(){
                 originale: film.original_title,
                 lingua: flags(film.original_language),
                 language: film.original_language,
-                stelle: stars(film.vote_average)
+                stelle: stars(film.vote_average),
+                poster: film.poster_path
              };
              var html = template(context);
-             $('.films-trovati').append(html);
+             $('.films-trovati').append(html)
         }
     };
 
@@ -92,7 +93,8 @@ $(document).ready(function(){
                 originale: film.original_name,
                 lingua: flags(film.original_language),
                 language: film.original_language,
-                stelle: stars(film.vote_average)
+                stelle: stars(film.vote_average),
+                poster: film.poster_path
              };
              var html = template(context);
              $('.films-trovati').append(html);
@@ -113,6 +115,19 @@ $(document).ready(function(){
         return language
     };
 
+//Altra funzione per bandiera in lingua
+
+    // function flags(lang){
+    //     var availableFlags = [
+    //         'en',
+    //         'it'
+    //     ];
+    //     if (availableFlags.includes(language)) {
+    //         var flag = '<img src="img/flags/' + lang + '.svg" alt="' + lang +'">'; //Immagini che andrebbero messe in cartella interna
+    //         return flag;
+    //     }
+    //     return lang
+    // };
 
 //Funzione per creare stelle in maniera dinamica
     function stars(voto){
