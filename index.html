@@ -8,13 +8,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/bc0e551fa3.js" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <input class="input-film"placeholder="Cerca film...">
-        <button class="search">Cerca</button>
-        <div class="films-trovati"></div>
+    <body class="clearfix">
+        <header>
+            <h3>BOOLFLIX</h3>
+            <div class="header-right">
+                <input class="input-film"placeholder="Nome film o serie tv...">
+                <button class="search">Cerca</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="films-trovati"></div>
+        </main>
+
         <script id="films-template" type="text/x-handlebars-template">
           <div class="film-trovato">
-            <span><img src="https://image.tmdb.org/t/p/w154{{poster}}" alt=""></span>
+            <img src="https://image.tmdb.org/t/p/w342{{poster}}" alt="">
             <span>Titolo:{{titolo}}</span>
             <span>Titolo Originale:{{originale}}</span>
             <span>Lingua:<img src="https://www.countryflags.io/{{lingua}}/flat/32.png"></span>
