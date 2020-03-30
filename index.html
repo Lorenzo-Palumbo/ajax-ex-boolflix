@@ -8,26 +8,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/bc0e551fa3.js" crossorigin="anonymous"></script>
     </head>
-    <body class="clearfix">
-        <header>
-            <h3>BOOLFLIX</h3>
-            <div class="header-right">
-                <input class="input-film"placeholder="Nome film o serie tv...">
-                <button class="search">Cerca</button>
-            </div>
-        </header>
+    <body>
+        <div class="container">
+            <header>
+                <h3>BOOLFLIX</h3>
+                <div class="header-right">
+                    <input class="input-film"placeholder="Nome film o serie tv...">
+                    <button class="search">Cerca</button>
+                </div>
+            </header>
 
-        <main>
-            <div class="films-trovati"></div>
-        </main>
+            <main>
+                <div class="films-trovati">
+                </div>
+            </main>
+        </div>
 
         <script id="films-template" type="text/x-handlebars-template">
           <div class="film-trovato">
-            <img src="https://image.tmdb.org/t/p/w342{{poster}}" alt="">
-            <span>Titolo:{{titolo}}</span>
-            <span>Titolo Originale:{{originale}}</span>
-            <span>Lingua:<img src="https://www.countryflags.io/{{lingua}}/flat/32.png"></span>
-            <span>Voto: {{{ stelle }}}</span>
+            <div class="immagine overlay">
+                <img src="{{{poster}}}" alt="">
+            </div>
+            <div class="testo">
+                <span>Titolo: {{{titolo}}}</span>
+                <span>Titolo Originale: {{originale}}</span>
+                <span>Lingua: <img src="https://www.countryflags.io/{{lingua}}/flat/32.png"></span>
+                <span>Voto: {{{ stelle }}}</span>
+            </div>
           </div>
         </script>
 

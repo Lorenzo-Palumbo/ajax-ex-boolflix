@@ -77,12 +77,12 @@ $(document).ready(function(){
             var film = films[i];
 
             var context = {
-                titolo: film.title,
+                titolo: '<h3>' + film.title + '</h3>',
                 originale: film.original_title,
                 lingua: flags(film.original_language),
                 language: film.original_language,
                 stelle: stars(film.vote_average),
-                poster: film.poster_path
+                poster: poster(film.poster_path)
              };
              var html = template(context);
              $('.films-trovati').append(html)
@@ -94,12 +94,12 @@ $(document).ready(function(){
             var film = films[i];
 
             var context = {
-                titolo: film.name,
+                titolo: '<h3>' + film.name + '</h3>',
                 originale: film.original_name,
                 lingua: flags(film.original_language),
                 language: film.original_language,
                 stelle: stars(film.vote_average),
-                poster: film.poster_path
+                poster: poster(film.poster_path)
              };
              var html = template(context);
              $('.films-trovati').append(html);
@@ -148,6 +148,14 @@ $(document).ready(function(){
             }
         }
         return htmlStelle
+    };
+
+    function poster(imgApi){
+        if (imgApi !== null) {
+            return 'https://image.tmdb.org/t/p/w185' + imgApi
+        }else {
+            return 'https://www.uh.edu/pharmacy/_images/directory-staff/no-image-available.jpg'
+        }
     };
 
 });
